@@ -1,0 +1,73 @@
+\chapter{Background}\label{chap:background}
+This chapter displays the background of the investigation, to enable a better comprehension of the framework executed. It starts with an introduction to the task of Detecting the sentiment of tweets related to human migration, followed by Text mining, Details of Twitter's data representation and its API's, classification algorithms. followed by the architectures that take advantage of the data’s spatial and temporal properties. The accompanying segment focuses on the past work that has been done in the field of mining Twitter's information and its analysis.
+
+
+    
+\section{Technical Background}
+
+The core task of detecting the Sentiment of the Tweets which are related to "Human Migration" requires techniques related to Data mining, Text mining and Machine Learning. For instance, typical computational analysis systems first extract Data regarding the "migration" from the tweets, and supervised classifier such as Logistic regression or artificial neural network (ANNs) are used for classification and detection. Thus, Data mining and classifier algorithms are the core tools in this computation analysis and hence are covered in this section.
+
+\subsection{Twitter Data mining}
+\subsection{Text mining}
+\subsection{Classification}
+\subsection{Twitter API's and Data representation}
+
+
+Social media platform can be used to collect data. Twitter is one of the well known online social networks, Where people use this to communicate short messages called tweets. Posting short messages which is called Tweeting and express opinion on various topics that they are interested in. Another description of Twitter and tweeting might be microblogging. \cite{TwitterDevDocs} Gives a
+complete list of all Twitter API. Which can be used to mine data from Twitter and filter data
+accordingly to match our research. 
+
+\underline{matte heavy agi bari}
+1) twitter data sets bagge bari
+2) Twitter api bagge bari
+3) data mining with tweets bagge bari
+
+
+
+\\ \cite{Marco} Gives in-detail about how the data in Twitter are represented
+and how the data can be extracted. Twitter contains Hashtags, Topics and Time Series along with
+Users, Followers, and Communities. And  \cite{Marco} also explains how to filter hashtags, represent the
+tweets in graphs. Tweets are spatial-temporal data as these contain Geo-tag along with Created
+Time metadata.
+
+\section{Related works in mining Twitter social media data}
+
+
+
+\\
+\cite{Goergen:2014:STA:2670386.2670392} paper concentrates on event detection, which is mainly focused on 3 distinct parameters
+known as w3 questions, "What is really happening, Where is the incident and When did the
+event happen?". The authors collects the spatial-temporal data from Twitter from two different
+countries. They use Names entity recognition, Geo-coordinates to identify location. Using this
+data authors determine the "number of possible users for a shared account by calculating the
+distance and velocity between tweets belonging to single account".
+
+\\ \cite{Hübl} paper concentrates on "Individual and aggregate trajectories that reflects the refugee migration
+movements" and "identify the spatiotemporal event clusters of refugee-related tweets to
+likely determine the location of refugees". The technique used by authors to collect data is, they
+downloaded all the Twitter data in a specific time frame and apply filters to separate out tweets
+which were of geographic interest. Authors collect both tweets which were geotagged with coordinates
+and with geotagged with a place description. For the latter type, The twitter places were
+are extended over continents. In addition to above filtering method, the authors also filter tweets
+of interest based on hashtag search. \cite{Hübl} work inspired me on how to collect word list for filtering
+tweets related to migration. But this work was related to the refugee crisis.
+ 
+
+\\ Compare to the data collection method used by \cite{Hübl}. The authors of \cite{Cortis:2015:ACT:2809563.2809605} use hashtag filtering
+along with popular terms used in those tweets. \cite{Cortis:2015:ACT:2809563.2809605} tries to analyze cyberbullying tweets in trending
+world events. The authors choose two world events which were the cause of several cyberbullying.
+The technique used by authors to collect and filter Twitter data is that they select two real-world
+events trending hashtags along with popular cyberbullying terms. This technique inspired me to
+apply this filter logic to collect tweets regarding migration.
+Regarding Sentiment analysis there are two approaches, One approach is to use the labeled
+texts and use supervised machine learning trained on the labeled text data to classify the polarity
+of new texts. Another approach creates a sentiment lexicon and scores the text based on some
+function that describes how the words and phrases of the text match the lexicon, \cite{DBLP:journals/corr/abs-1103-2903} Evaluates
+word list sentiment analysis for microblogging.
+
+\\ \cite{Jamie} Discusses how a classifier model is trained
+and evaluated by calculating precision, recall and F1 score on manually annotated and classifier
+predictions.
+
+
+\\ \underline{matte heavy agi bari}
