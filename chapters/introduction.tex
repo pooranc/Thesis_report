@@ -1,6 +1,24 @@
 \chapter{Introduction}\label{chap:introduction}
 Migration is one of the social phenomena in human beings life. It is the physical movement of human beings from one place to another for short or long term within or state borders. The sociologist has come up with the push-pull model after lots of research. This model tells or compares the push factors, that usually happens when sending country forces people to leave their homes, to pull factors, which attracts the people onto receiving country. In the recent history, the reasons for migration has changed and its changing. Today people migrate as an asylum seeker or as a trafficked person or refugee or as an international student.
 
+Data Regarding migration flows are largely inconsistent across countries, typically outdated and
+are often nonexistent. Research on migration policy making from International Organization for
+Migration(IOM)  \cite{IOM's} quotes "Migration has become one of the most challenging issues confronting
+policymakers around the world. The growing complexity of internal and cross-border human mobility
+has highlighted the need for reliable and timely data to inform migration policy development
+and humanitarian assistance". 
+
+Migration data is one the important parameter for demographic changes, But the traditional methods of collecting and storing data of migration statistics are limited. The census which is the comprehensive source of information about the entire population usually takes place every 5 to 10 years, some data is lost between census cycles. Methods like census and population registers may often not be appropriate to estimate short-term migration. 
+
+Spread of internet application, social media, and mobile phones as massively effected on how we communicate with others. This has helped many researchers to study on societies and due to the Digital revolution, these data are stored. The key feature in these data are Time and Geo-location. Availability of Spatial-Temporal data from on-line sources have opened up new opportunities for data scientist. These data can be accessed by anyone with relevant technical skills like Twitter data-sets, Linked-In data-sets, mobile phone data or can be bought from the companies like Google and Facebook (they don't sell the user data). Mainly, the data collected is based on the data desired. "Time" would be one of the important parameter to estimate the migration trends. Along with that, a specific group of population data (example: "Refugee") could be used to analyze trends. Human migration flow based on political reason, short-term migration for Education, employment and gender can be used to collect data. But obtaining unbiased data for all the topics would be difficult. 
+
+Analysing and Mining geo-locational data from tweets for understanding people opinion on migration
+
+In my approach, I will use Spatial-Temporal data from social network website "Twitter". Core point in this paper is to filter out the tweets, which has the text regarding the human migration between two countries and detect the sentiment. But, building a successful system to detect Human migration Tweets and predicting the opinion of these Tweets requires selecting relevant features and a suitable machine learning model. With respect to Twitter data, These are obtained as JSON format. Each object contains metadata like Hashtags, Topics, Time series, Geo-tags along with these Users, Followers, and Communities. The "Text" metadata in the Tweet is noisy as it is only 140 characters long(recently increased to 280 characters) and people would shorten the words in an unexpected manner. Traditionally while building a machine learning model "Text" metadata is used a feature. As it has many other particular features like Mentions(@user) and Hashtags(\# topic) which provide useful information.
+
+
+\underline{brief agi bari about the approach}
+
 \section{Example citation \& symbol reference}\label{sec:citation}
 For symbols look at \cite{latex_symbols_2017}.
 
