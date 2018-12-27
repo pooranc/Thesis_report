@@ -1,25 +1,77 @@
 \chapter{Approach}\label{chap:approach}
-This section is a point by point depiction of the actualized framework utilized in this thesis, to detect the Tweets related to Human Migration  and its Sentiment. To start with, the undertaking of Mining Twitter data is defined, and next the framework is depicted in the sequential order of its working.
+This section is a point by point depiction of the actualized framework utilized in this thesis, which is to detect the Tweets related to Human Migration  and its Sentiment. To start with, the undertaking of Mining Twitter data is defined, and next the framework is depicted in the sequential order of its working.
 
 \section{Problem Formulation}
 
-Social media generates a massive amount of data every minute, Which has helped and created 
-many business opportunities. These data can be mined to find valuable patterns. Data regarding human mobility or migration flow can be used for many applications such as urban planning 
-or understanding disease spreading or even population prediction. But, data collection method
- is outdated as data scientist use census data for identifying the patterns in inflow and outflow 
-of humans, a lot of data and prediction is lost between census. Recent studies have shown that
-this trends or patterns can be studied using tracking mobile phones signals, GPS, WIFI or even
-with RFID devices. But, with these techniques, there will be privacy concerns and data access 
-restriction. 
+Predicting the topic of the Tweet is a very challenging work . Task of my approach is, to classify the Tweets which are related to Migration topic and second part is understanding the sentiment of those migration Tweets. The solution to the problem can be broken down into stages: Twitter data mining, feature engineering, training, and evaluation stages.
 
-With focus on mining twitter data and gathering information on specific topic which is migration in
-my paper. I need to understand why people migrate. And implement a strategy to mine migration
-tweets. This data mining strategy has to be evaluated. Once the Tweets are classified as migration
-tweets, these tweets are used to understand the sentiment of the people who are tweeting this. So
-the work in my thesis concentrate on following questions.
-1. How is data related to human migration mined from twitter? What are the key
-parameters to filter tweets regarding human migration from other generic subject Tweets?
-2. Sentiment detection based on twitter migration data between TWO countries?
+In the first stage, Data is mined from the Twitter. With respect to the task of identifying the migration Tweets, getting the ground truth value is very difficult. The collected data cannot be mapped and searched with any Population registers. So data are mined with respect to particular reason/topic, which is, why people migrate?. The link in the note  \footnote{Check \url{http://www.bbc.co.uk/schools/gcsebitesize/geography/migration/migration_trends_rev2.shtml}  } discusses the main reasons for human migration. Four important factors which affect human migration are:
+
+\begin{itemize}
+  \item Economic
+  \item Social
+    \item Political
+  \item Environmental
+\end{itemize}
+Political migration factor is considered in this experiment. The reason only this factor is considered is because , Collecting an unbiased data for all the factors is very difficult. For instance, people migrate for short term for Education or Work, Collecting the data from the "LinkedIn" would be more feasible. As Twitter is considered to mine data, this social network would help getting sufficient data for political factor. 
+
+In the Second stage, Meaningful features are extracted from Twitter's JSON data. "Text" of the Tweet along with the "user description" and \underline{write about the weights}. These Tweets were manually annotated as migration tweets (with labels "yes" or "no"), which is used a target labels. The supervised classifier is then trained
+using these feature and their corresponding labels in the training stage.
+
+The classifier parameters (θ ) are trained by using supervised learning, and the target out-
+puts(labels, y t ) are obtained for each extracted frame from the annotations provided in
+the meta text. If the event is present in the frame, y t (k) are set to 1, and 0 otherwise. To
+predict, the trained model will fit the parameters on test audio files and give a temporal
+sequence of probabilities, as expected in the real-life scenario. To achieve this, a set of
+post-processing steps are applied to the activations received from the final output layer of
+the network.
+RSED, thus, can be formalised as a binary classification problem where, by combining
+the classification results over consecutive time frames, the onset and offset times for the
+event can be determined.
 
 
 \section{Method}
+\subsection{Data Collection}
+Twitter Archives(100GB) was used to search for the Tweets using the hashtags. The Hashtags were selected based on the Political factors for migration
+example: war, election. Hashtags chosen were ’\#refugee’, ’\#wall’, ’\#Syria’, ’\#syrianrefugee’, ’\#mexicanwall’, ’\#trumpwall’, ’\#immigrants’. And only English tweets are
+extracted. 
+\subsection{Feature engineering}
+As part of feature selection, the following are the features selected
+\begin{itemize}
+  \item ”Text” of the tweet
+  \item  User Description
+  \item  Migration index
+  \item  Migration percentage
+  \item  Location
+\end{itemize}
+ Migration index" is computed based on the Dictionary. This dictionary is a list of words which are related to migration along with corresponding weights which are manually assigned based on the severity level which is 1 to 5, 1 being negligible and 5 being extremely related to migration. This severity is calculated based on the word frequency. A word-cloud is generated with the collected tweets "text" and the severity number is assigned to the words based on the most frequently occurring word.
+ I check all the tweets for the presence of words from this dictionary if present it gets the corresponding weights of all those words and mean is calculated for those weights. This mean is "Migration index". 
+ 
+
+
+Presence of Migration word alone cannot necessarily mean the text is related
+to Human migration. The text/tweet can be considered more related to migration if the migration word is directed at a particular individual, a group of
+people, race, country, religion etc. For this reason, I also created a list of pronouns and collective nouns, with this ”Migration percentage” is calculated based on the presence of Migration word along with pronouns or collective nouns.   
+
+Location is obtained using the "Geopy" python library. The user location is passed to "Geopy" library to get latitude and longitude. 
+
+
+\subsection{Preprocessing}
+
+\begin{itemize}
+  \item Only ”English” tweets
+  \item Sort the tweets, Check similarity between consecutive tweets
+  \item Merge text and Description fields
+  \item Deleting all non-alphanumeric characters
+  \item Retrieving the location (latitude, longitude)
+\end{itemize}
+
+\subsection{Manual Annotations}
+The Data-sets collected are shared with five of my friends to annotate. Each annotator annotates the tweet with 2 labels. One as migration "yes" or "no" and second for the sentiment of the tweets "pos" or "neg". I take a mean those annotations and add the labels for each collected tweet. 
+
+\subsection{Training}
+Data from the prepossessing step are used for the training a binary classifier,
+which will classify the Tweet as ”migration tweet or not”. The output data
+from this classifier is fed to another sentiment classifier, (which is trained from
+Stanford data) to understand the opinion of the migration tweets.
+\textbf{NOTE: Currently selected classifiers are Logistic regression, Naive Bayes, SVM. This is subjected to change based on performance}

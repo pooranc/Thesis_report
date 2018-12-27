@@ -1,17 +1,24 @@
 \chapter{Background}\label{chap:background}
 This chapter displays the background of the investigation, to enable a better comprehension of the framework executed. It starts with an introduction to the task of Detecting the sentiment of tweets related to human migration, followed by Text mining, Details of Twitter's data representation and its API's, classification algorithms. followed by the architectures that take advantage of the data’s spatial and temporal properties. The accompanying segment focuses on the past work that has been done in the field of mining Twitter's information and its analysis.
 
-
+machine learning pipeline, data crawling, and stuff
     
 \section{Technical Background}
 
-The core task of detecting the Sentiment of the Tweets which are related to "Human Migration" requires techniques related to Data mining, Text mining and Machine Learning. For instance, typical Data analysis systems first extract Data regarding the "Human migration" from the tweets, and supervised classifier such as Logistic regression or artificial neural network (ANNs) are used for classification and detection. Thus, Data mining and classifier algorithms are the core tools in this computation analysis and hence are covered in this section.
+The core task of detecting the Sentiment of the Tweets which are related to ``Human Migration" requires techniques related to Data mining, Text mining and Machine Learning. For instance, typical Data analysis systems first extract Data regarding the ``Human migration" from the tweets, and supervised classifier such as Logistic regression or Naive bayes or SVM  are used for classification and detection. Thus, Data mining and classifier algorithms are the core tools in this computation analysis and hence are covered in this section.
 
-\subsection{Twitter Data mining}
+\subsection{Twitter Data analysis}
 
-Social media platform can be used to collect data. Twitter is one of the well known online social networks, Where people use this to communicate short messages called tweets. Posting short messages which is called Tweeting and express opinion on various topics that they are interested in. Another description of Twitter and tweeting might be microblogging. \cite{TwitterDevDocs} Gives a
-complete list of all Twitter API. Which can be used to mine data from Twitter and filter data
-accordingly to match our research. 
+Twitter is one of the well known online social networks, People use this to communicate short messages (140 character length) called tweets and express opinion on various topics that they are interested in. It is also called ``Microblogging", which is different from other social media platform like Facebook. One more thing which makes Twitter different from Facebook is, Networking is not bidirectional. Which means connections don't have to be mutual. Another  potential aspect of choosing Twitter for mining data is, It popularized the term hashtags. Which is used to group a  conversation and user can follow a particular topic.
+
+Twitter provides number of APIs to collect Twitter data programmatically. \cite{TwitterDevDocs} Gives a complete list of all Twitter APIs and the steps to set up project to access Twitter data. Data from these APIs can be collected by more than one way, which can be broadly categorized as REST APIs and Streaming APIs . But, Twitter API limits access to applications. The rate limits are described in the link  \footnote{https://developer.twitter.com/en/docs/basics/rate-limiting}. Usually the REST APIs are used to search for the existing tweets or tweets which are already published. These APIs are not only rate limited also they are limited based on the time span (search tweets back to one week). Then, the streaming APIs can be used to collect tweets as per our search criteria and as they publish in current timel(example: live events). These APIs are rate limited on a per-user basis. Based on above two limitations, I choose to use the Twitter data archives \footnote{https://archive.org/details/twitterstream?and[]=year\%3A\%222016\%22}. This gave me an advantage of choosing a data dump which is based on a particular time.   
+
+
+\cite{Marco} Gives in-detail about how the data in Twitter are represented
+and how the data can be extracted. Twitter contains Hashtags, Topics and Time Series along with
+Users, Followers, and Communities. And  \cite{Marco} also explains how to filter hashtags, represent the
+tweets in graphs. Tweets are spatial-temporal data as these contain Geo-tag along with Created
+Time metadata.
 
 \underline{matte heavy agi bari}
 1) twitter data sets bagge bari
@@ -19,7 +26,40 @@ accordingly to match our research.
 3) data mining with tweets bagge bari
 
 
+ But, building a successful system to detect Human migration Tweets and predicting the opinion of these Tweets requires selecting relevant features and a suitable machine learning model. With respect to Twitter data, These are obtained as JSON format. Each object contains metadata like Hashtags, Topics, Time series, Geo-tags along with these Users, Followers, and Communities. The ``Text" metadata in the Tweet is noisy as it is only 140 characters long(recently increased to 280 characters) and people would shorten the words in an unexpected manner. Traditionally while building a machine learning model "Text" metadata is used a feature. As it has many other particular features like Mentions(@user) and Hashtags(\# topic) which provide useful information.
+ 
+ 
 \subsection{Text mining}
+
+In the Previous section, I discussed about the Twitter APIs and the Twitter data sets. This subsection focuses on the techniques and processes of using the Text for classification and addition of other features along with text to improve the accuracy of the classifier algorithms.  In this chapter pre-processing of the data, the feature selection are discussed.
+
+\subsubsection{Data Pre-processing}
+
+Pre-processing of data is one of the main step in any data mining experiments. This step is extensively used and studied by lot of applications which uses unstructured, raw data. Though we do have the data, Analyzing raw format data produce misleading results if the data is not carefully screened. So, data need to be structured and formatted, which makes Data Pre-processing step important and necessary.
+
+Usually, All the \underline{[list of the literature in the paper]} performs preprocessing on the Twitter data for their analysis. Steps like removing the unwanted symbols, Filtering tweets, removing the stop words,  correcting errors, converting the text to lowercase are common in most of the Text preprocessing experiments.
+
+Symbols like `@', `\#' and punctuation which are often present in text of the Tweet, can be removed. Because, these symbols will not give useful information while analyzing text. Just like these symbols, stop words are also removed. Stop words are the words which occur most frequently, which are removed from text in most of the Natural language processing projects. 
+
+In the data gathering step, There might be lot of repeated Tweets, Re-tweets or repeated letters in the words(example: `Greattttt', `Aweeeeesome!!!!'). A filter technique is applied to remove or check for the similarity of tweets and avoid duplicates. Along with this duplicate check, one more step which is followed in every text analysis experiment is converting the the Text to lowercase. Text often has a variety of capitalization reflecting the beginning of sentences, proper nouns emphasis. Which are normalized into a single form but care should be taken as it would the change the meaning (example: `US' to `us').
+
+Another widely recognized method to filter strings is using a regular expression \cite{Thompson}. It provides a easy way to recognize substrings when we have the pattern to search and the text document. The regular expression search function searches the entire corpus and return the substring based on the pattern. Regular expression are just special sequence of characters for identifying strings. It is now a standard feature in almost all programming language and tools which has a capacity to fit nearly all string patterns.   
+
+Another helpful method which can be used in data pre-processing step for text is Stemming. It is a process of reducing the word to its word stem which is the original root form. An example for stemming method is it reduce the word "cheaper" to "cheap" and "cheapest" to "cheap". This helps in reducing the number of words in-turn aids in giving better results while analyzing the text data.
+
+Apart from all these techniques mentioned above, Language of the text plays an important role. Different language has different grammar, structure, set of words. As mentioned in previous methods, if the data is clean and preprocessed, an  accurate classifier models can be trained. If the Text from the different language is used, a noise will be introduced later when the classifier is trained.  Consequently, Language detection is necessary. collecting the data of a single language can be done by two operations, either by translation or filtering. Both steps requires to process of identifying language. This is one of the interesting field of research in Natural Language Processing, to identify languages. One simple method is to understand the distribution of the characters per language.
+
+Once the data is collected from the same language and preprocessed, the data can be fed to feature engineering step.
+
+\subsubsection{Feature Extraction and Engineering}
+
+Feature engineering is another important step in construction of an intelligent system. Although there are many new technologies, such as deep learning and meta-heuristics, that help with automated machine learning, Each problem is domain specific and better (problem-friendly) features are often the decisive factor in our system performance. This is why Data scientist spend most of the time in data preparation and feature extracting. Alomst 70\% of time is spent in this step before model preparation. As famous researcher on the feild of data science Andrew Ng, quotes ``Coming up with features is difficult, time-consuming, requires expert knowledge. `Applied machine learning' is basically feature engineering.". Which explains why this steps is time consuming and difficult. This step requires both domain knowledge and mathematical computations. Another researcher Dr. Jason Brownlee, quotes ``Feature engineering is the process of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data.". This explains us that perhaps feature engineering is the mechanism of converting data into features that act as variables for machine learning models to improve the overall performance of the model.
+
+Features can be broadly categorized as Raw features and Derived features. Raw features are the one which are obtained directly from the dataset and the derived features are obtained from feature engineering. Data is available in many diverse forms like "Continuous, numeric data", "Discrete, categorical data" and "Unstructured, textual data". Data which are stored as a scalar values, which usually represents recordings, measurements or observations are referred as Continuous, numeric data (it can also be represented as vector but each value represent a feature). Although numerical data can be effectively fed into machine learning models, we will still need to develop situation, problem and domain-relevant features before even building a model. In contrast to continuous numeric data, the categorical data attribute are represented as discrete values that belong to a certain limited set of categories or classes. which are also often referred to as classes or labels in the context of attributes or variables that a model must predict. This categorical data as two types, nominal and ordinal. In nominal attributes, There is no concept of ordering within the attribute 's values. For ordinal attributes, there exist a sense or idea of order in their values. Now that we talked about the types of data representation, let's look at the structure of text data and text data feature engineering. As I'm trying to build machine learning models in this paper using Tweet texts.
+
+
+
+
 \subsection{Classification}
 
 
@@ -28,11 +68,7 @@ accordingly to match our research.
 
 
 
-\cite{Marco} Gives in-detail about how the data in Twitter are represented
-and how the data can be extracted. Twitter contains Hashtags, Topics and Time Series along with
-Users, Followers, and Communities. And  \cite{Marco} also explains how to filter hashtags, represent the
-tweets in graphs. Tweets are spatial-temporal data as these contain Geo-tag along with Created
-Time metadata.
+
 
 \section{Related works in mining Twitter social media data}
 
@@ -47,6 +83,8 @@ data authors determine the "number of possible users for a shared account by cal
 distance and velocity between tweets belonging to single account".
 
  
+Authors from \cite{Hadgu} and  \cite{Böhm2017} presents an approach to classify the Twitter user to a particular domain, for example, Researcher or Economist. Authors of \cite{Hadgu} presents a method to classify a twitter user to a specific researcher discipline. They use a seed set from the computer science conference and crawl Twitter to collect relatively good ground truth data. This mapping is used to learn a model for classifying the Twitter user to particular desired discipline. Authors of \cite{Böhm2017}  extends this approach to classify Economist in Twitter. Their approach differs from \cite{Hadgu}, as they use the "Text" of the tweets for classification. They collect ground truth data by comparing the Twitter user account name with the economic publication database. This data is used to train a classifier model. But, In my case, It is very difficult to get the ground truth data, There is limited data where the Twitter user can be verified to figure out the Tweet is coming from a migrant or Tweet "Text" is related to migration. 
+ 
 \cite{Hübl} paper concentrates on "Individual and aggregate trajectories that reflects the refugee migration
 movements" and "identify the spatiotemporal event clusters of refugee-related tweets to
 likely determine the location of refugees". The technique used by authors to collect data is, they
@@ -56,8 +94,6 @@ and with geotagged with a place description. For the latter type, The twitter pl
 are extended over continents. In addition to above filtering method, the authors also filter tweets
 of interest based on hashtag search. \cite{Hübl} work inspired me on how to collect word list for filtering
 tweets related to migration. But this work was related to the refugee crisis.
- 
-
  
 Compare to the data collection method used by \cite{Hübl}. The authors of \cite{Cortis} use hashtag filtering
 along with popular terms used in those tweets. \cite{Cortis} tries to analyze cyberbullying tweets in trending
